@@ -11,18 +11,21 @@ export default function App() {
   let intervalRef = useRef(null);
 
   function startTimer() {
+    if(intervalRef.current !== null) return;
+
     setTitle(`You're doing great!`);
     intervalRef.current = setInterval(() => {
       setTimeLeft(timeLeft => {
         if(timeLeft >= 1) return timeLeft - 1;
-        
-        // reset the timer
+        resetTimer();
         return 0;
       });
     }, 1000);
   }
 
   function stopTimer() {
+    if(intervalRef.current !== null) return;
+    
     clearInterval(intervalRef.current);
     setTitle('Keep it up!');
   }
